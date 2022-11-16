@@ -1,11 +1,12 @@
-import React from "react";
 import { GlobalStyle } from "./styles/GlobalStyle";
+import TodoList from "./components/TodoList";
 
 function App() {
   return (
-    <div>
+    <>
       <GlobalStyle />
-    </div>
+      <TodoList />
+    </>
   );
 }
 
