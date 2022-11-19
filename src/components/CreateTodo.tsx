@@ -1,13 +1,12 @@
-import React from "react";
 import { useForm } from "react-hook-form";
-import { useRecoilState } from "recoil";
-import { TodoArr } from "../atoms/atoms";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { TodoArr, Category } from "../atoms/atoms";
 
 interface IForm {
   todo: string;
 }
-
 const CreateTodo = () => {
+  const category = useRecoilValue(Category);
   const { register, handleSubmit, setValue } = useForm<IForm>();
   const [tdArr, setTdArr] = useRecoilState(TodoArr);
 
@@ -17,7 +16,7 @@ const CreateTodo = () => {
         {
           text: todo,
           id: Date.now(),
-          category: "TO_DO",
+          category: category,
         },
         ...prev,
       ];
