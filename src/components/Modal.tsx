@@ -19,7 +19,7 @@ const Modal = ({ isOpen }: IProps) => {
       <ModalContainer>
         <Header>
           <h1>Add a category</h1>
-          <p onClick={closeModal}>❌</p>
+          <CloseBtn onClick={closeModal}>❌</CloseBtn>
         </Header>
         <FormContainer>
           <input type="text" value={category} onChange={onChange} />
@@ -34,14 +34,18 @@ export default Modal;
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
-`;
-const ModalBackground = styled.div`
-  background-color: rgba(0, 0, 0, 0.6);
-  width: 100%;
-  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
   bottom: 0;
   left: 0;
+`;
+const ModalBackground = styled.div`
+  width: 100%;
+  height: 100vh;
+`;
+const CloseBtn = styled.button`
+  border: none;
+  background-color: white;
 `;
 const ModalContainer = styled.div`
   width: 250px;
