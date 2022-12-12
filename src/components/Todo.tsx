@@ -10,7 +10,11 @@ interface ITODO {
 }
 const Todo = ({ text, category, id }: ITODO) => {
   const setTodo = useSetRecoilState(TodoArr);
-
+  const handleRemove = (id: number) => {
+    setTodo((prev: ITODO[]) => {
+      return prev.filter((todo: ITODO) => todo.id !== id);
+    });
+  };
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const {
       currentTarget: { name },
@@ -44,7 +48,13 @@ const Todo = ({ text, category, id }: ITODO) => {
             {Categories.TO_DO}
           </BtnStyled>
         )}
-        <BtnStyled>❌</BtnStyled>
+        <BtnStyled
+          onClick={() => {
+            handleRemove(id);
+          }}
+        >
+          🗑️
+        </BtnStyled>
       </BtnContainer>
     </Container>
   );
