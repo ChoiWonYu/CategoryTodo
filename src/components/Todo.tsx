@@ -1,6 +1,7 @@
 import React from "react";
 import { useSetRecoilState } from "recoil";
 import { TodoArr, Categories } from "../atoms/atoms";
+import styled from "styled-components";
 
 interface ITODO {
   text: string;
@@ -25,25 +26,48 @@ const Todo = ({ text, category, id }: ITODO) => {
     });
   };
   return (
-    <>
+    <Container>
       <li>{text}</li>
-      {category !== Categories.Doing && (
-        <button name={Categories.Doing} onClick={handleClick}>
-          {Categories.Doing}
-        </button>
-      )}
-      {category !== Categories.Done && (
-        <button name={Categories.Done} onClick={handleClick}>
-          {Categories.Done}
-        </button>
-      )}
-      {category !== Categories.TO_DO && (
-        <button name={Categories.TO_DO} onClick={handleClick}>
-          {Categories.TO_DO}
-        </button>
-      )}
-    </>
+      <BtnContainer>
+        {category !== Categories.Doing && (
+          <BtnStyled name={Categories.Doing} onClick={handleClick}>
+            {Categories.Doing}
+          </BtnStyled>
+        )}
+        {category !== Categories.Done && (
+          <BtnStyled name={Categories.Done} onClick={handleClick}>
+            {Categories.Done}
+          </BtnStyled>
+        )}
+        {category !== Categories.TO_DO && (
+          <BtnStyled name={Categories.TO_DO} onClick={handleClick}>
+            {Categories.TO_DO}
+          </BtnStyled>
+        )}
+        <BtnStyled>❌</BtnStyled>
+      </BtnContainer>
+    </Container>
   );
 };
 
 export default Todo;
+
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: ${(props) => props.theme.accentColor};
+  height: 45px;
+  color: ${(props) => props.theme.textColor};
+  border-radius: 15px;
+  padding: 10px;
+  margin: 0 0 15px 0;
+`;
+const BtnContainer = styled.div``;
+
+const BtnStyled = styled.button`
+  background-color: white;
+  margin: 2px;
+  border: none;
+  border-radius: 5px;
+`;
