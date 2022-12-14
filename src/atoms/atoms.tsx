@@ -1,19 +1,14 @@
 import { atom, selector } from "recoil";
-export enum Categories {
-  "TO_DO" = "TO_DO",
-  "Doing" = "Doing",
-  "Done" = "Done",
-}
 
 interface ITODO {
   text: string;
   id: number;
-  category: Categories;
+  category: string;
 }
 
 export const Category = atom({
   key: "Category",
-  default: Categories.TO_DO,
+  default: "TO_DO",
 });
 
 export const TodoArr = atom<ITODO[]>({
@@ -28,3 +23,5 @@ export const TodoSelector = selector({
     return toDos.filter((todo) => todo.category === category);
   },
 });
+//selectedCategory atom 만들어서 해결
+//effects props 이용 로컬스토리지

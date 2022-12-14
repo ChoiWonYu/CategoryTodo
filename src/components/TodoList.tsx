@@ -1,7 +1,7 @@
 import { useRecoilValue, useRecoilState } from "recoil";
 import CreateTodo from "./CreateTodo";
 import Todo from "./Todo";
-import { TodoSelector, Category, Categories } from "../atoms/atoms";
+import { TodoSelector, Category } from "../atoms/atoms";
 import styled from "styled-components";
 import { useState } from "react";
 import Modal from "./Modal";
