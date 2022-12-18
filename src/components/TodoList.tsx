@@ -1,35 +1,34 @@
 import { useRecoilValue, useRecoilState } from "recoil";
 import CreateTodo from "./CreateTodo";
 import Todo from "./Todo";
-import { TodoSelector, Category } from "../atoms/atoms";
+import { TodoSelector, selectedCategory, Categories } from "../atoms/atoms";
 import styled from "styled-components";
 import { useState } from "react";
 import Modal from "./Modal";
 
 const TodoList = () => {
-  const [category, setCategory] = useRecoilState(Category);
+  const [selected, setSelected] = useRecoilState(selectedCategory);
+  const categories = useRecoilValue(Categories);
   const Todos = useRecoilValue(TodoSelector);
   const [isOpen, setIspOpen] = useState(false);
   const onInput = (e: React.FormEvent<HTMLSelectElement>) => {
-    setCategory(e.currentTarget.value as Categories);
+    setSelected(e.currentTarget.value);
   };
   const openModal = () => {
     setIspOpen(true);
   };
-  const closeModal = () => {
-    setIspOpen(false);
-  };
+
   return (
     <Container>
       {isOpen && <Modal isOpen={setIspOpen} />}
       <CreateSeclect>
         <CreateTodo />
-        <SelectStyled value={category} onInput={onInput}>
-          {category}
-          <option value={Categories.TO_DO}>{Categories.TO_DO}</option>
-          <option value={Categories.Done}>{Categories.Done}</option>
-          <option value={Categories.Doing}>{Categories.Doing}</option>
+        <SelectStyled value={selected} onInput={onInput}>
+          {categories.map((category) => (
+            <option value={category}>{category}</option>
+          ))}
         </SelectStyled>
+
         <PlusCategoryBtn onClick={openModal}>+</PlusCategoryBtn>
       </CreateSeclect>
       <TodoContainer>
@@ -49,6 +48,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
 const CreateSeclect = styled.div`
   display: flex;
   margin: 100px 0 20px 0;

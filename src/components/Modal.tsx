@@ -1,14 +1,23 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import styled from "styled-components";
+import { Categories } from "../atoms/atoms";
+import { useSetRecoilState } from "recoil";
 interface IProps {
   isOpen: Dispatch<SetStateAction<boolean>>;
 }
 const Modal = ({ isOpen }: IProps) => {
   const [category, setCategory] = useState("");
+  const setCategories = useSetRecoilState(Categories);
   const closeModal = () => {
     isOpen(false);
   };
-  const addCategory = () => {};
+  const addCategory = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setCategories((prev) => {
+      return [...prev, category];
+    });
+    closeModal();
+  };
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
     setCategory(e.currentTarget.value);
   };
@@ -21,9 +30,9 @@ const Modal = ({ isOpen }: IProps) => {
           <h1>Add a category</h1>
           <CloseBtn onClick={closeModal}>❌</CloseBtn>
         </Header>
-        <FormContainer>
+        <FormContainer onSubmit={addCategory}>
           <input type="text" value={category} onChange={onChange} />
-          <button onClick={addCategory}>add</button>
+          <button>add</button>
         </FormContainer>
       </ModalContainer>
     </Container>

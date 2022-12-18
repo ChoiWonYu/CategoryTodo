@@ -6,9 +6,13 @@ interface ITODO {
   category: string;
 }
 
-export const Category = atom({
-  key: "Category",
-  default: "TO_DO",
+export const selectedCategory = atom({
+  key: "selectedCategaory",
+  default: "normal",
+});
+export const Categories = atom({
+  key: "Categories",
+  default: ["normal"],
 });
 
 export const TodoArr = atom<ITODO[]>({
@@ -19,7 +23,7 @@ export const TodoSelector = selector({
   key: "todoSelector",
   get: ({ get }) => {
     const toDos = get(TodoArr);
-    const category = get(Category);
+    const category = get(selectedCategory);
     return toDos.filter((todo) => todo.category === category);
   },
 });
