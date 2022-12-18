@@ -6,6 +6,18 @@ interface ITODO {
   category: string;
 }
 
+const dataEffect =
+  (key: string) =>
+  ({ onSet, setSelf }: any) => {
+    const data = localStorage.getItem(key);
+    if (data !== null) {
+      setSelf(JSON.parse(data));
+    }
+    onSet((newValue: any) => {
+      localStorage.setItem(key, JSON.stringify(newValue));
+    });
+  };
+
 export const selectedCategory = atom({
   key: "selectedCategaory",
   default: "normal",
@@ -13,11 +25,13 @@ export const selectedCategory = atom({
 export const Categories = atom({
   key: "Categories",
   default: ["normal"],
+  effects: [dataEffect("Categories")],
 });
 
 export const TodoArr = atom<ITODO[]>({
   key: "todoArr",
   default: [],
+  effects: [dataEffect("TodoList")],
 });
 export const TodoSelector = selector({
   key: "todoSelector",
@@ -27,5 +41,4 @@ export const TodoSelector = selector({
     return toDos.filter((todo) => todo.category === category);
   },
 });
-//selectedCategory atom 만들어서 해결
 //effects props 이용 로컬스토리지
